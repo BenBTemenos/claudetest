@@ -32,6 +32,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  width: 100%;
 }
 
 .layer-label {
@@ -46,23 +47,22 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  flex: 1;
+  width: 100%;
 }
 
 .side {
   display: flex;
   gap: 8px;
   flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
 .left-side {
   justify-content: flex-end;
-  flex: 1;
 }
 
 .right-side {
   justify-content: flex-start;
-  flex: 1;
 }
 
 .aisle {
