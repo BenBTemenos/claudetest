@@ -92,72 +92,25 @@ function App() {
                 <div className="legend">
               <h3>Pricing Legend:</h3>
               <div className="legend-items">
-                <h4 style={{width: '100%', marginBottom: '10px', color: '#666'}}>Front Perpendicular Rows (Premium)</h4>
                 <div className="legend-item">
-                  <span className="legend-box layer-1"></span>
-                  <span>Row 1: $600/year</span>
+                  <span className="legend-box" style={{backgroundColor: '#1976d2'}}></span>
+                  <span>$600/year</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-box layer-2"></span>
-                  <span>Row 2: $550/year</span>
+                  <span className="legend-box" style={{backgroundColor: '#4caf50'}}></span>
+                  <span>$500/year</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-box layer-3"></span>
-                  <span>Row 3: $500/year</span>
+                  <span className="legend-box" style={{backgroundColor: '#ffeb3b'}}></span>
+                  <span>$300/year</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-box layer-4"></span>
-                  <span>Row 4: $450/year</span>
+                  <span className="legend-box" style={{backgroundColor: '#ff9800'}}></span>
+                  <span>$200/year</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-box layer-5"></span>
-                  <span>Row 5: $400/year</span>
-                </div>
-              </div>
-              <div className="legend-items">
-                <h4 style={{width: '100%', marginTop: '10px', marginBottom: '10px', color: '#666'}}>Regular Seats with Aisle</h4>
-                <div className="legend-item">
-                  <span className="legend-box layer-6"></span>
-                  <span>Layer 6: $500/year</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box layer-7"></span>
-                  <span>Layer 7: $400/year</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box layer-8"></span>
-                  <span>Layer 8: $300/year</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box layer-9"></span>
-                  <span>Layer 9: $200/year</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box layer-10"></span>
-                  <span>Layer 10: $150/year</span>
-                </div>
-              </div>
-              <div className="legend-items">
-                <h4 style={{width: '100%', marginTop: '10px', marginBottom: '10px', color: '#666'}}>Back Perpendicular Rows</h4>
-                <div className="legend-item">
-                  <span className="legend-box layer-11"></span>
-                  <span>Row 11: $400/year</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box layer-12"></span>
-                  <span>Row 12: $450/year</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box layer-13"></span>
-                  <span>Row 13: $500/year</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box layer-14"></span>
-                  <span>Row 14: $550/year</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box layer-15"></span>
-                  <span>Row 15: $600/year</span>
+                  <span className="legend-box" style={{backgroundColor: '#f44336'}}></span>
+                  <span>$150/year</span>
                 </div>
               </div>
               <div className="legend-items">
