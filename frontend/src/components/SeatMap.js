@@ -3,14 +3,15 @@ import './SeatMap.css';
 import Seat from './Seat';
 
 function SeatMap({ seats, selectedSeat, onSeatClick }) {
-  // Separate perpendicular and regular seats
-  const perpendicularSeats = seats.filter(s => s.seat_type === 'perpendicular');
+  // Separate perpendicular front, regular, and perpendicular back seats
+  const perpendicularFrontSeats = seats.filter(s => s.seat_type === 'perpendicular_front');
   const regularSeats = seats.filter(s => s.seat_type === 'regular');
+  const perpendicularBackSeats = seats.filter(s => s.seat_type === 'perpendicular_back');
 
   // Organize perpendicular seats by layer
-  const organizePerpendicular = () => {
+  const organizePerpendicular = (seatsList) => {
     const organized = {};
-    perpendicularSeats.forEach(seat => {
+    seatsList.forEach(seat => {
       if (!organized[seat.layer]) {
         organized[seat.layer] = [];
       }
@@ -45,10 +46,12 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
     return organized;
   };
 
-  const organizedPerpendicular = organizePerpendicular();
+  const organizedPerpendicularFront = organizePerpendicular(perpendicularFrontSeats);
   const organizedRegular = organizeRegular();
-  const perpendicularLayers = Object.keys(organizedPerpendicular).sort((a, b) => a - b);
+  const organizedPerpendicularBack = organizePerpendicular(perpendicularBackSeats);
+  const perpendicularFrontLayers = Object.keys(organizedPerpendicularFront).sort((a, b) => a - b);
   const regularLayers = Object.keys(organizedRegular).sort((a, b) => a - b);
+  const perpendicularBackLayers = Object.keys(organizedPerpendicularBack).sort((a, b) => a - b);
 
   return (
     <div className="seat-map-container">
@@ -56,9 +59,9 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
 
       <div className="seat-map">
         {/* Perpendicular front rows */}
-        {perpendicularLayers.map(layer => (
-          <div key={`perp-${layer}`} className="perpendicular-row">
-            {organizedPerpendicular[layer].map(seat => (
+        {perpendicularFrontLayers.map(layer => (
+          <div key={`perp-front-${layer}`} className="perpendicular-row">
+            {organizedPerpendicularFront[layer].map(seat => (
               <Seat
                 key={seat.id}
                 seat={seat}
@@ -69,8 +72,8 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
           </div>
         ))}
 
-        {/* Separator between perpendicular and regular seats */}
-        {perpendicularLayers.length > 0 && regularLayers.length > 0 && (
+        {/* Separator between perpendicular front and regular seats */}
+        {perpendicularFrontLayers.length > 0 && regularLayers.length > 0 && (
           <div className="seating-separator"></div>
         )}
 
@@ -107,6 +110,25 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
                 ))}
               </div>
             </div>
+          </div>
+        ))}
+
+        {/* Separator between regular seats and perpendicular back */}
+        {regularLayers.length > 0 && perpendicularBackLayers.length > 0 && (
+          <div className="seating-separator"></div>
+        )}
+
+        {/* Perpendicular back rows */}
+        {perpendicularBackLayers.map(layer => (
+          <div key={`perp-back-${layer}`} className="perpendicular-row">
+            {organizedPerpendicularBack[layer].map(seat => (
+              <Seat
+                key={seat.id}
+                seat={seat}
+                isSelected={selectedSeat?.id === seat.id}
+                onClick={() => onSeatClick(seat)}
+              />
+            ))}
           </div>
         ))}
       </div>

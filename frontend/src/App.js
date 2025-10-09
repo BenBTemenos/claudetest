@@ -118,7 +118,7 @@ function App() {
                 <h4 style={{width: '100%', marginTop: '10px', marginBottom: '10px', color: '#666'}}>Regular Seats with Aisle</h4>
                 <div className="legend-item">
                   <span className="legend-box layer-6"></span>
-                  <span>Layer 6 (Front): $500/year</span>
+                  <span>Layer 6: $500/year</span>
                 </div>
                 <div className="legend-item">
                   <span className="legend-box layer-7"></span>
@@ -134,7 +134,30 @@ function App() {
                 </div>
                 <div className="legend-item">
                   <span className="legend-box layer-10"></span>
-                  <span>Layer 10 (Back): $150/year</span>
+                  <span>Layer 10: $150/year</span>
+                </div>
+              </div>
+              <div className="legend-items">
+                <h4 style={{width: '100%', marginTop: '10px', marginBottom: '10px', color: '#666'}}>Back Perpendicular Rows</h4>
+                <div className="legend-item">
+                  <span className="legend-box layer-11"></span>
+                  <span>Row 11: $400/year</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-box layer-12"></span>
+                  <span>Row 12: $450/year</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-box layer-13"></span>
+                  <span>Row 13: $500/year</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-box layer-14"></span>
+                  <span>Row 14: $550/year</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-box layer-15"></span>
+                  <span>Row 15: $600/year</span>
                 </div>
               </div>
               <div className="legend-items">
