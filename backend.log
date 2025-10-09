@@ -8,6 +8,12 @@ Press CTRL+C to quit
  * Restarting with stat
  * Debugger is active!
  * Debugger PIN: 110-164-512
-172.22.144.1 - - [09/Oct/2025 15:27:49] "GET /api/seats HTTP/1.1" 200 -
-172.22.144.1 - - [09/Oct/2025 15:27:49] "GET /api/seats HTTP/1.1" 200 -
-127.0.0.1 - - [09/Oct/2025 15:28:02] "GET /api/seats HTTP/1.1" 200 -
+172.22.144.1 - - [09/Oct/2025 15:36:42] "GET /api/seats HTTP/1.1" 200 -
+172.22.144.1 - - [09/Oct/2025 15:36:42] "GET /api/seats HTTP/1.1" 200 -
+127.0.0.1 - - [09/Oct/2025 15:36:52] "GET /api/seats HTTP/1.1" 200 -
+172.22.144.1 - - [09/Oct/2025 15:37:03] "GET /api/seats HTTP/1.1" 200 -
+172.22.144.1 - - [09/Oct/2025 15:37:03] "GET /api/seats HTTP/1.1" 200 -
+ * Detected change in '/home/bboussiba/workspace/bentest/backend/database.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 110-164-512

@@ -69,34 +69,48 @@ class Database:
 
         # Pricing structure
         pricing = {
-            1: 600,  # Perpendicular front rows (premium)
-            2: 550,
-            3: 500,
-            4: 450,
-            5: 400,
-            6: 500,  # Regular rows start
-            7: 400,
-            8: 300,
-            9: 200,
-            10: 150
+            1: 500,   # Part 3 - Top regular rows
+            2: 400,
+            3: 300,
+            4: 200,
+            5: 150,
+            6: 600,   # Part 1 - Perpendicular front rows (premium)
+            7: 550,
+            8: 500,
+            9: 450,
+            10: 400,
+            11: 500,  # Part 2 - Bottom regular rows
+            12: 400,
+            13: 300,
+            14: 200,
+            15: 150
         }
 
-        # Generate perpendicular front seats: 5 rows (layers 1-5), 10 seats each
+        # Generate Part 3 - Top regular seats: 5 layers (1-5), 2 sides, 10 positions each
         for layer in range(1, 6):
+            for side in ['left', 'right']:
+                for position in range(1, 11):
+                    cursor.execute('''
+                        INSERT INTO seats (layer, side, position, price, is_available, seat_type)
+                        VALUES (?, ?, ?, ?, 1, ?)
+                    ''', (layer, side, position, pricing[layer], 'regular_top'))
+
+        # Generate Part 1 - Perpendicular front seats: 5 rows (layers 6-10), 10 seats each
+        for layer in range(6, 11):
             for position in range(1, 11):
                 cursor.execute('''
                     INSERT INTO seats (layer, side, position, price, is_available, seat_type)
                     VALUES (?, ?, ?, ?, 1, ?)
                 ''', (layer, None, position, pricing[layer], 'perpendicular_front'))
 
-        # Generate regular seats: 5 layers (6-10), 2 sides, 10 positions each
-        for layer in range(6, 11):
+        # Generate Part 2 - Bottom regular seats: 5 layers (11-15), 2 sides, 10 positions each
+        for layer in range(11, 16):
             for side in ['left', 'right']:
                 for position in range(1, 11):
                     cursor.execute('''
                         INSERT INTO seats (layer, side, position, price, is_available, seat_type)
                         VALUES (?, ?, ?, ?, 1, ?)
-                    ''', (layer, side, position, pricing[layer], 'regular'))
+                    ''', (layer, side, position, pricing[layer], 'regular_bottom'))
 
         conn.commit()
 

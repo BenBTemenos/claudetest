@@ -25,19 +25,26 @@
   margin-top: 2px;
 }
 
-/* Layer-based colors - Perpendicular front rows (blue tones - premium) */
-.seat.layer-1.available { background-color: #1976d2; }
-.seat.layer-2.available { background-color: #2196f3; }
-.seat.layer-3.available { background-color: #03a9f4; }
-.seat.layer-4.available { background-color: #00bcd4; }
-.seat.layer-5.available { background-color: #00acc1; }
+/* Part 3 - Top regular rows (green to red) */
+.seat.layer-1.available { background-color: #4caf50; }
+.seat.layer-2.available { background-color: #8bc34a; }
+.seat.layer-3.available { background-color: #ffeb3b; }
+.seat.layer-4.available { background-color: #ff9800; }
+.seat.layer-5.available { background-color: #f44336; }
 
-/* Regular rows (green to red) */
-.seat.layer-6.available { background-color: #4caf50; }
-.seat.layer-7.available { background-color: #8bc34a; }
-.seat.layer-8.available { background-color: #ffeb3b; }
-.seat.layer-9.available { background-color: #ff9800; }
-.seat.layer-10.available { background-color: #f44336; }
+/* Part 1 - Perpendicular front rows (blue tones - premium) */
+.seat.layer-6.available { background-color: #1976d2; }
+.seat.layer-7.available { background-color: #2196f3; }
+.seat.layer-8.available { background-color: #03a9f4; }
+.seat.layer-9.available { background-color: #00bcd4; }
+.seat.layer-10.available { background-color: #00acc1; }
+
+/* Part 2 - Bottom regular rows (green to red) */
+.seat.layer-11.available { background-color: #4caf50; }
+.seat.layer-12.available { background-color: #8bc34a; }
+.seat.layer-13.available { background-color: #ffeb3b; }
+.seat.layer-14.available { background-color: #ff9800; }
+.seat.layer-15.available { background-color: #f44336; }
 
 /* Available seat hover effect */
 .seat.available:hover {
