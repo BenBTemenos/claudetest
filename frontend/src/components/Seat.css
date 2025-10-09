@@ -1,0 +1,95 @@
+.seat {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.seat-number {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.seat-price {
+  font-size: 0.7rem;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* Layer-based colors */
+.seat.layer-1.available { background-color: #4caf50; }
+.seat.layer-2.available { background-color: #8bc34a; }
+.seat.layer-3.available { background-color: #ffeb3b; }
+.seat.layer-4.available { background-color: #ff9800; }
+.seat.layer-5.available { background-color: #f44336; }
+
+/* Available seat hover effect */
+.seat.available:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: #2196f3;
+}
+
+/* Selected seat */
+.seat.selected {
+  background-color: #2196f3;
+  transform: scale(1.15);
+  box-shadow: 0 6px 12px rgba(33, 150, 243, 0.4);
+  border-color: #1976d2;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.seat.selected .seat-number,
+.seat.selected .seat-price {
+  color: white;
+}
+
+/* Booked seat */
+.seat.booked {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.seat.booked .seat-number,
+.seat.booked .seat-price {
+  color: #555;
+}
+
+.seat.booked:hover {
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@media (max-width: 768px) {
+  .seat {
+    width: 50px;
+    height: 50px;
+  }
+
+  .seat-number {
+    font-size: 1rem;
+  }
+
+  .seat-price {
+    font-size: 0.6rem;
+  }
+}

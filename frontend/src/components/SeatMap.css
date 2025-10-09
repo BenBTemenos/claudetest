@@ -1,0 +1,117 @@
+.seat-map-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 1200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.room-label {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+  margin: 10px 0;
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 5px;
+}
+
+.seat-map {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.layer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.layer-label {
+  font-weight: bold;
+  color: #666;
+  min-width: 80px;
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.seats-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.side {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.left-side {
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.right-side {
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.aisle {
+  width: 60px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #e0e0e0 0%, #f5f5f5 50%, #e0e0e0 100%);
+  border-left: 2px dashed #999;
+  border-right: 2px dashed #999;
+  position: relative;
+}
+
+.aisle-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 0.7rem;
+  color: #666;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+  .seat-map-container {
+    padding: 15px;
+  }
+
+  .layer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .layer-label {
+    text-align: center;
+    min-width: auto;
+  }
+
+  .seats-row {
+    flex-direction: column;
+  }
+
+  .side {
+    justify-content: center !important;
+  }
+
+  .aisle {
+    width: 100%;
+    min-height: 30px;
+  }
+
+  .aisle-label {
+    writing-mode: horizontal-tb;
+  }
+}

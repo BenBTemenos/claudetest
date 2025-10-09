@@ -1,0 +1,153 @@
+.multi-agent-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.multi-agent-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 60px;
+}
+
+.header-icon {
+  font-size: 2rem;
+}
+
+.multi-agent-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.flowchart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.flow-node {
+  border-radius: 12px;
+  padding: 20px 40px;
+  border: 3px solid;
+  min-width: 200px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.node-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.node-subtitle {
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+/* Node Colors */
+.node-blue {
+  background-color: #e3f2fd;
+  border-color: #2196f3;
+  color: #1565c0;
+}
+
+.node-orange {
+  background-color: #fff3e0;
+  border-color: #ff9800;
+  color: #e65100;
+}
+
+.node-green {
+  background-color: #e8f5e9;
+  border-color: #4caf50;
+  color: #2e7d32;
+}
+
+.node-purple {
+  background-color: #f3e5f5;
+  border-color: #9c27b0;
+  color: #6a1b9a;
+}
+
+.node-pink {
+  background-color: #fce4ec;
+  border-color: #e91e63;
+  color: #c2185b;
+}
+
+/* Arrows */
+.flow-arrow {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 30px solid #2196f3;
+  position: relative;
+}
+
+.arrow-down::before {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 30px;
+  background-color: #2196f3;
+  left: -1.5px;
+  top: -60px;
+}
+
+/* Agents Row */
+.agents-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.agents-row .flow-node {
+  min-width: 150px;
+  flex: 1;
+  max-width: 180px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .multi-agent-container {
+    padding: 20px 10px;
+  }
+
+  .multi-agent-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .flow-node {
+    padding: 15px 25px;
+    font-size: 1rem;
+    min-width: 150px;
+  }
+
+  .agents-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .agents-row .flow-node {
+    max-width: 100%;
+    width: 200px;
+  }
+}
