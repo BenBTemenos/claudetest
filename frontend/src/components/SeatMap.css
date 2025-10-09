@@ -49,7 +49,7 @@
 .side {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .left-side {
