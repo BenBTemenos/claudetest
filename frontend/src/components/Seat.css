@@ -39,13 +39,6 @@
 .seat.layer-9.available { background-color: #ff9800; }
 .seat.layer-10.available { background-color: #f44336; }
 
-/* Perpendicular back rows (purple tones) */
-.seat.layer-11.available { background-color: #9c27b0; }
-.seat.layer-12.available { background-color: #ab47bc; }
-.seat.layer-13.available { background-color: #ba68c8; }
-.seat.layer-14.available { background-color: #ce93d8; }
-.seat.layer-15.available { background-color: #e1bee7; }
-
 /* Available seat hover effect */
 .seat.available:hover {
   transform: scale(1.1);

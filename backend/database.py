@@ -78,12 +78,7 @@ class Database:
             7: 400,
             8: 300,
             9: 200,
-            10: 150,
-            11: 400,  # Perpendicular back rows
-            12: 450,
-            13: 500,
-            14: 550,
-            15: 600   # Back perpendicular (premium like front)
+            10: 150
         }
 
         # Generate perpendicular front seats: 5 rows (layers 1-5), 10 seats each
@@ -102,14 +97,6 @@ class Database:
                         INSERT INTO seats (layer, side, position, price, is_available, seat_type)
                         VALUES (?, ?, ?, ?, 1, ?)
                     ''', (layer, side, position, pricing[layer], 'regular'))
-
-        # Generate perpendicular back seats: 5 rows (layers 11-15), 10 seats each
-        for layer in range(11, 16):
-            for position in range(1, 11):
-                cursor.execute('''
-                    INSERT INTO seats (layer, side, position, price, is_available, seat_type)
-                    VALUES (?, ?, ?, ?, 1, ?)
-                ''', (layer, None, position, pricing[layer], 'perpendicular_back'))
 
         conn.commit()
 
