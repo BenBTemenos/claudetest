@@ -33,8 +33,6 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
       <div className="seat-map">
         {layers.map(layer => (
           <div key={layer} className="layer">
-            <div className="layer-label">Layer {layer}</div>
-
             <div className="seats-row">
               {/* Left side */}
               <div className="side left-side">
