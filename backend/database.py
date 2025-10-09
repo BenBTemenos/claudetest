@@ -106,11 +106,11 @@ class Database:
         cursor = conn.cursor()
 
         cursor.execute('''
-            SELECT s.id, s.layer, s.side, s.position, s.price, s.is_available,
+            SELECT s.id, s.layer, s.side, s.position, s.price, s.is_available, s.seat_type,
                    b.user_name, b.user_email
             FROM seats s
             LEFT JOIN bookings b ON s.id = b.seat_id AND s.is_available = 0
-            ORDER BY s.layer, s.side, s.position
+            ORDER BY s.seat_type, s.layer, s.side, s.position
         ''')
 
         seats = [dict(row) for row in cursor.fetchall()]
@@ -123,7 +123,7 @@ class Database:
         cursor = conn.cursor()
 
         cursor.execute('''
-            SELECT s.id, s.layer, s.side, s.position, s.price, s.is_available,
+            SELECT s.id, s.layer, s.side, s.position, s.price, s.is_available, s.seat_type,
                    b.user_name, b.user_email
             FROM seats s
             LEFT JOIN bookings b ON s.id = b.seat_id AND s.is_available = 0
