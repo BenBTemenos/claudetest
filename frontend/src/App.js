@@ -92,25 +92,49 @@ function App() {
                 <div className="legend">
               <h3>Pricing Legend:</h3>
               <div className="legend-items">
+                <h4 style={{width: '100%', marginBottom: '10px', color: '#666'}}>Front Perpendicular Rows (Premium)</h4>
                 <div className="legend-item">
                   <span className="legend-box layer-1"></span>
-                  <span>Layer 1 (Front): $500/year</span>
+                  <span>Row 1: $600/year</span>
                 </div>
                 <div className="legend-item">
                   <span className="legend-box layer-2"></span>
-                  <span>Layer 2: $400/year</span>
+                  <span>Row 2: $550/year</span>
                 </div>
                 <div className="legend-item">
                   <span className="legend-box layer-3"></span>
-                  <span>Layer 3: $300/year</span>
+                  <span>Row 3: $500/year</span>
                 </div>
                 <div className="legend-item">
                   <span className="legend-box layer-4"></span>
-                  <span>Layer 4: $200/year</span>
+                  <span>Row 4: $450/year</span>
                 </div>
                 <div className="legend-item">
                   <span className="legend-box layer-5"></span>
-                  <span>Layer 5 (Back): $150/year</span>
+                  <span>Row 5: $400/year</span>
+                </div>
+              </div>
+              <div className="legend-items">
+                <h4 style={{width: '100%', marginTop: '10px', marginBottom: '10px', color: '#666'}}>Regular Seats with Aisle</h4>
+                <div className="legend-item">
+                  <span className="legend-box layer-6"></span>
+                  <span>Layer 6 (Front): $500/year</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-box layer-7"></span>
+                  <span>Layer 7: $400/year</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-box layer-8"></span>
+                  <span>Layer 8: $300/year</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-box layer-9"></span>
+                  <span>Layer 9: $200/year</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-box layer-10"></span>
+                  <span>Layer 10 (Back): $150/year</span>
                 </div>
               </div>
               <div className="legend-items">

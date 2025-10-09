@@ -30,10 +30,11 @@ class Database:
             CREATE TABLE IF NOT EXISTS seats (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 layer INTEGER NOT NULL,
-                side TEXT NOT NULL,
+                side TEXT,
                 position INTEGER NOT NULL,
                 price REAL NOT NULL,
                 is_available INTEGER DEFAULT 1,
+                seat_type TEXT DEFAULT 'regular',
                 UNIQUE(layer, side, position)
             )
         ''')
@@ -68,21 +69,34 @@ class Database:
 
         # Pricing structure
         pricing = {
-            1: 500,  # Front layer
-            2: 400,
-            3: 300,
-            4: 200,
-            5: 150   # Back layer
+            1: 600,  # Perpendicular front rows (premium)
+            2: 550,
+            3: 500,
+            4: 450,
+            5: 400,
+            6: 500,  # Regular rows start (was layer 1)
+            7: 400,  # Was layer 2
+            8: 300,  # Was layer 3
+            9: 200,  # Was layer 4
+            10: 150  # Was layer 5 (back)
         }
 
-        # Generate seats: 5 layers, 2 sides, 10 positions each
+        # Generate perpendicular front seats: 5 rows (layers 1-5), 10 seats each
         for layer in range(1, 6):
+            for position in range(1, 11):
+                cursor.execute('''
+                    INSERT INTO seats (layer, side, position, price, is_available, seat_type)
+                    VALUES (?, ?, ?, ?, 1, ?)
+                ''', (layer, None, position, pricing[layer], 'perpendicular'))
+
+        # Generate regular seats: 5 layers (6-10), 2 sides, 10 positions each
+        for layer in range(6, 11):
             for side in ['left', 'right']:
                 for position in range(1, 11):
                     cursor.execute('''
-                        INSERT INTO seats (layer, side, position, price, is_available)
-                        VALUES (?, ?, ?, ?, 1)
-                    ''', (layer, side, position, pricing[layer]))
+                        INSERT INTO seats (layer, side, position, price, is_available, seat_type)
+                        VALUES (?, ?, ?, ?, 1, ?)
+                    ''', (layer, side, position, pricing[layer], 'regular'))
 
         conn.commit()
 

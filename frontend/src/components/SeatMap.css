@@ -29,6 +29,19 @@
   width: max-content;
 }
 
+.perpendicular-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.seating-separator {
+  height: 30px;
+  border-bottom: 2px dashed #999;
+  margin: 10px 0;
+}
+
 .layer {
   display: flex;
   align-items: center;

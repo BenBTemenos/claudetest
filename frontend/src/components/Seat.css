@@ -25,12 +25,19 @@
   margin-top: 2px;
 }
 
-/* Layer-based colors */
-.seat.layer-1.available { background-color: #4caf50; }
-.seat.layer-2.available { background-color: #8bc34a; }
-.seat.layer-3.available { background-color: #ffeb3b; }
-.seat.layer-4.available { background-color: #ff9800; }
-.seat.layer-5.available { background-color: #f44336; }
+/* Layer-based colors - Perpendicular front rows (blue tones - premium) */
+.seat.layer-1.available { background-color: #1976d2; }
+.seat.layer-2.available { background-color: #2196f3; }
+.seat.layer-3.available { background-color: #03a9f4; }
+.seat.layer-4.available { background-color: #00bcd4; }
+.seat.layer-5.available { background-color: #00acc1; }
+
+/* Regular rows (green to red) */
+.seat.layer-6.available { background-color: #4caf50; }
+.seat.layer-7.available { background-color: #8bc34a; }
+.seat.layer-8.available { background-color: #ffeb3b; }
+.seat.layer-9.available { background-color: #ff9800; }
+.seat.layer-10.available { background-color: #f44336; }
 
 /* Available seat hover effect */
 .seat.available:hover {
