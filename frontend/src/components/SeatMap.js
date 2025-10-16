@@ -53,6 +53,18 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
   const perpendicularFrontLayers = Object.keys(organizedPerpendicularFront).sort((a, b) => a - b);
   const regularBottomLayers = Object.keys(organizedRegularBottom).sort((a, b) => a - b);
 
+  // Create continuous F numbering for top regular seats
+  let fCounter = 1;
+  const seatsWithFNumbers = {};
+  regularTopLayers.forEach(layer => {
+    organizedRegularTop[layer].left.forEach(seat => {
+      seatsWithFNumbers[seat.id] = fCounter++;
+    });
+    organizedRegularTop[layer].right.forEach(seat => {
+      seatsWithFNumbers[seat.id] = fCounter++;
+    });
+  });
+
   return (
     <div className="seat-map-container">
       <div className="room-label">STAGE / FRONT</div>
@@ -67,7 +79,7 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
                 {organizedRegularTop[layer].left.map(seat => (
                   <Seat
                     key={seat.id}
-                    seat={seat}
+                    seat={{...seat, fNumber: seatsWithFNumbers[seat.id]}}
                     isSelected={selectedSeat?.id === seat.id}
                     onClick={() => onSeatClick(seat)}
                   />
@@ -84,7 +96,7 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
                 {organizedRegularTop[layer].right.map(seat => (
                   <Seat
                     key={seat.id}
-                    seat={seat}
+                    seat={{...seat, fNumber: seatsWithFNumbers[seat.id]}}
                     isSelected={selectedSeat?.id === seat.id}
                     onClick={() => onSeatClick(seat)}
                   />
@@ -100,18 +112,23 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
         )}
 
         {/* Part 1 - Perpendicular front rows */}
-        {perpendicularFrontLayers.map(layer => (
-          <div key={`perp-front-${layer}`} className="perpendicular-row">
-            {organizedPerpendicularFront[layer].map(seat => (
-              <Seat
-                key={seat.id}
-                seat={seat}
-                isSelected={selectedSeat?.id === seat.id}
-                onClick={() => onSeatClick(seat)}
-              />
-            ))}
-          </div>
-        ))}
+        {perpendicularFrontLayers.map((layer, layerIndex) => {
+          // Calculate M numbers for this layer
+          let mCounter = layerIndex === 0 ? 1 : (layerIndex * 10) + 1;
+
+          return (
+            <div key={`perp-front-${layer}`} className="perpendicular-row">
+              {organizedPerpendicularFront[layer].map((seat, seatIndex) => (
+                <Seat
+                  key={seat.id}
+                  seat={{...seat, mNumber: mCounter + seatIndex}}
+                  isSelected={selectedSeat?.id === seat.id}
+                  onClick={() => onSeatClick(seat)}
+                />
+              ))}
+            </div>
+          );
+        })}
 
         {/* Separator between perpendicular and bottom regular seats */}
         {perpendicularFrontLayers.length > 0 && regularBottomLayers.length > 0 && (
@@ -119,40 +136,54 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
         )}
 
         {/* Part 2 - Bottom regular seats with aisle */}
-        {regularBottomLayers.map(layer => (
-          <div key={layer} className="layer">
-            <div className="seats-row">
-              {/* Left side */}
-              <div className="side left-side">
-                {organizedRegularBottom[layer].left.map(seat => (
-                  <Seat
-                    key={seat.id}
-                    seat={seat}
-                    isSelected={selectedSeat?.id === seat.id}
-                    onClick={() => onSeatClick(seat)}
-                  />
-                ))}
-              </div>
+        {(() => {
+          // Create continuous B numbering for bottom regular seats
+          let bCounter = 1;
+          const seatsWithBNumbers = {};
+          regularBottomLayers.forEach(layer => {
+            organizedRegularBottom[layer].left.forEach(seat => {
+              seatsWithBNumbers[seat.id] = bCounter++;
+            });
+            organizedRegularBottom[layer].right.forEach(seat => {
+              seatsWithBNumbers[seat.id] = bCounter++;
+            });
+          });
 
-              {/* Aisle */}
-              <div className="aisle">
-                <span className="aisle-label">AISLE</span>
-              </div>
+          return regularBottomLayers.map(layer => (
+            <div key={layer} className="layer">
+              <div className="seats-row">
+                {/* Left side */}
+                <div className="side left-side">
+                  {organizedRegularBottom[layer].left.map(seat => (
+                    <Seat
+                      key={seat.id}
+                      seat={{...seat, bNumber: seatsWithBNumbers[seat.id]}}
+                      isSelected={selectedSeat?.id === seat.id}
+                      onClick={() => onSeatClick(seat)}
+                    />
+                  ))}
+                </div>
 
-              {/* Right side */}
-              <div className="side right-side">
-                {organizedRegularBottom[layer].right.map(seat => (
-                  <Seat
-                    key={seat.id}
-                    seat={seat}
-                    isSelected={selectedSeat?.id === seat.id}
-                    onClick={() => onSeatClick(seat)}
-                  />
-                ))}
+                {/* Aisle */}
+                <div className="aisle">
+                  <span className="aisle-label">AISLE</span>
+                </div>
+
+                {/* Right side */}
+                <div className="side right-side">
+                  {organizedRegularBottom[layer].right.map(seat => (
+                    <Seat
+                      key={seat.id}
+                      seat={{...seat, bNumber: seatsWithBNumbers[seat.id]}}
+                      isSelected={selectedSeat?.id === seat.id}
+                      onClick={() => onSeatClick(seat)}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ));
+        })()}
       </div>
 
       <div className="room-label">BACK</div>

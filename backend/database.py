@@ -3,7 +3,10 @@ import os
 from datetime import datetime
 
 class Database:
-    def __init__(self, db_path='database/seats.db'):
+    def __init__(self, db_path=None):
+        if db_path is None:
+            # Use absolute path to the database in the project root
+            db_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'database', 'seats.db')
         self.db_path = db_path
         self._ensure_directory()
         self._initialize_database()
