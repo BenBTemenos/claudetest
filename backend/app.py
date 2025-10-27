@@ -1,13 +1,21 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from database import Database
+from email_service import init_mail, send_booking_confirmation
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
 # Initialize database
 db = Database()
+
+# Initialize email service
+init_mail(app)
 
 @app.route('/api/seats', methods=['GET'])
 def get_seats():
@@ -49,9 +57,49 @@ def create_booking():
         )
 
         if booking_id:
+            # Get seat details for email
+            seat = db.get_seat_by_id(data['seat_id'])
+
+            # Get booking details
+            bookings = db.get_all_bookings()
+            current_booking = next((b for b in bookings if b['id'] == booking_id), None)
+
+            if seat and current_booking:
+                # Prepare email data
+                from datetime import datetime
+                booking_data = {
+                    'booking_id': booking_id,
+                    'user_name': data['user_name'],
+                    'user_email': data['user_email'],
+                    'booking_date': current_booking.get('booking_date', datetime.now().isoformat()),
+                    'seat_info': {
+                        'layer': seat['layer'],
+                        'side': seat.get('side'),
+                        'position': seat['position'],
+                        'price': seat['price'],
+                        'seat_type': seat.get('seat_type', 'regular')
+                    }
+                }
+
+                # Send confirmation email (non-blocking - won't fail booking if email fails)
+                email_sent, email_message = send_booking_confirmation(booking_data)
+
+                if not email_sent:
+                    # Log warning but don't fail the booking
+                    print(f"Warning: {email_message}")
+
+                return jsonify({
+                    'message': 'Booking created successfully',
+                    'booking_id': booking_id,
+                    'email_sent': email_sent,
+                    'email_message': email_message if not email_sent else 'Confirmation email sent successfully'
+                }), 201
+
             return jsonify({
                 'message': 'Booking created successfully',
-                'booking_id': booking_id
+                'booking_id': booking_id,
+                'email_sent': False,
+                'email_message': 'Could not retrieve seat information for email'
             }), 201
         else:
             return jsonify({'error': 'Seat is already booked'}), 400

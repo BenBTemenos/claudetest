@@ -8,6 +8,7 @@ A web application for booking seats annually with visual seat selection and real
 - **Tiered Pricing**: Front seats cost more than back seats
 - **Real-time Availability**: See which seats are available or booked
 - **Online Booking**: Simple form to book seats with name and email
+- **Email Confirmations**: Automatic confirmation emails sent after successful bookings
 - **Persistent Storage**: SQLite database for data persistence
 
 ## Technology Stack
@@ -17,6 +18,7 @@ A web application for booking seats annually with visual seat selection and real
 - Flask (REST API)
 - SQLite (Database)
 - Flask-CORS (Cross-origin requests)
+- Flask-Mail (Email notifications)
 
 ### Frontend
 - React 18+
@@ -30,7 +32,9 @@ bentest/
 ├── backend/
 │   ├── app.py              # Flask API server
 │   ├── database.py         # Database connection and queries
+│   ├── email_service.py    # Email confirmation service
 │   ├── requirements.txt    # Python dependencies
+│   ├── .env                # Email configuration (not in git)
 │   └── .gitignore
 ├── frontend/
 │   ├── src/
@@ -63,7 +67,27 @@ bentest/
    pip install -r requirements.txt
    ```
 
-3. Run the Flask server:
+3. **Configure Email Settings** (Required for booking confirmations):
+
+   Edit the `.env` file in the `backend/` directory with your Hotmail/Outlook credentials:
+
+   ```env
+   MAIL_SERVER=smtp-mail.outlook.com
+   MAIL_PORT=587
+   MAIL_USE_TLS=True
+   MAIL_USE_SSL=False
+   MAIL_USERNAME=your-email@hotmail.com
+   MAIL_PASSWORD=your-password-here
+   MAIL_DEFAULT_SENDER=your-email@hotmail.com
+   ```
+
+   **Important Notes:**
+   - Use your Hotmail/Outlook email address
+   - If you have 2-factor authentication enabled, generate an App Password from your Microsoft account security settings
+   - The `.env` file is already excluded from git for security
+   - Alternative email providers (Gmail, SendGrid) can be configured by changing the MAIL_SERVER and MAIL_PORT
+
+4. Run the Flask server:
    ```bash
    python app.py
    ```
@@ -96,7 +120,7 @@ bentest/
 3. **View the seat map** with color-coded pricing tiers
 4. **Click on an available seat** (green/yellow/orange/red based on layer)
 5. **Fill in the booking form** with your name and email
-6. **Confirm your booking** - the seat will be marked as booked
+6. **Confirm your booking** - the seat will be marked as booked and you'll receive a confirmation email
 
 ## Pricing Structure
 
