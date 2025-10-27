@@ -17,6 +17,44 @@ db = Database()
 # Initialize email service
 init_mail(app)
 
+def calculate_seat_id(seat, all_seats):
+    """Calculate the seat ID (F1, M1, B1, etc.) based on seat type and position"""
+    seat_type = seat.get('seat_type', 'regular')
+
+    if seat_type == 'regular_top':
+        # F-series: continuous numbering for top regular seats
+        # Get all top regular seats ordered by layer, then side (left before right), then position
+        top_seats = [s for s in all_seats if s.get('seat_type') == 'regular_top']
+        top_seats.sort(key=lambda s: (s['layer'], s['side'], s['position']))
+
+        # Find the index of current seat
+        for idx, s in enumerate(top_seats):
+            if s['id'] == seat['id']:
+                return f"F{idx + 1}"
+
+    elif seat_type == 'perpendicular_front':
+        # M-series: continuous numbering for perpendicular front seats
+        perp_seats = [s for s in all_seats if s.get('seat_type') == 'perpendicular_front']
+        perp_seats.sort(key=lambda s: (s['layer'], s['position']))
+
+        # Find the index of current seat
+        for idx, s in enumerate(perp_seats):
+            if s['id'] == seat['id']:
+                return f"M{idx + 1}"
+
+    elif seat_type == 'regular_bottom':
+        # B-series: continuous numbering for bottom regular seats
+        bottom_seats = [s for s in all_seats if s.get('seat_type') == 'regular_bottom']
+        bottom_seats.sort(key=lambda s: (s['layer'], s['side'], s['position']))
+
+        # Find the index of current seat
+        for idx, s in enumerate(bottom_seats):
+            if s['id'] == seat['id']:
+                return f"B{idx + 1}"
+
+    # Fallback
+    return f"SEAT-{seat['id']}"
+
 @app.route('/api/seats', methods=['GET'])
 def get_seats():
     """Get all seats with their availability status"""
@@ -65,6 +103,10 @@ def create_booking():
             current_booking = next((b for b in bookings if b['id'] == booking_id), None)
 
             if seat and current_booking:
+                # Get all seats for seat_id calculation
+                all_seats = db.get_all_seats()
+                seat_id = calculate_seat_id(seat, all_seats)
+
                 # Prepare email data
                 from datetime import datetime
                 booking_data = {
@@ -73,6 +115,7 @@ def create_booking():
                     'user_email': data['user_email'],
                     'booking_date': current_booking.get('booking_date', datetime.now().isoformat()),
                     'seat_info': {
+                        'seat_id': seat_id,
                         'layer': seat['layer'],
                         'side': seat.get('side'),
                         'position': seat['position'],

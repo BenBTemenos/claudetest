@@ -25,6 +25,9 @@ def create_confirmation_email_body(booking_data):
     """Create HTML email body for booking confirmation"""
     seat_info = booking_data.get('seat_info', {})
 
+    # Get seat ID
+    seat_id = seat_info.get('seat_id', 'N/A')
+
     # Format seat location
     if seat_info.get('side'):
         seat_location = f"Layer {seat_info['layer']} - {seat_info['side'].capitalize()} Side - Position {seat_info['position']}"
@@ -112,6 +115,11 @@ def create_confirmation_email_body(booking_data):
                 <div class="detail-row">
                     <span class="label">Booking ID:</span>
                     <span class="value">#{booking_data['booking_id']}</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="label">Seat ID:</span>
+                    <span class="value" style="font-weight: bold; color: #667eea; font-size: 1.2em;">{seat_id}</span>
                 </div>
 
                 <div class="detail-row">

@@ -3,6 +3,7 @@ import './App.css';
 import SeatMap from './components/SeatMap';
 import BookingForm from './components/BookingForm';
 import MultiAgentSystem from './components/MultiAgentSystem';
+import SeatFinder from './components/SeatFinder';
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
@@ -16,6 +17,7 @@ function App() {
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [emailStatus, setEmailStatus] = useState(null);
   const [bookings, setBookings] = useState([]);
+  const [showSeatFinder, setShowSeatFinder] = useState(false);
 
   useEffect(() => {
     fetchSeats();
@@ -211,6 +213,18 @@ function App() {
                 </div>
               </div>
             </div>
+
+                  {/* Help Me Find Section */}
+                  <div className="help-find-section">
+                    <h3>Help Me to Find:</h3>
+                    <p>Find the perfect seat by your budget or people you know !</p>
+                    <button
+                      className="find-seat-btn"
+                      onClick={() => setShowSeatFinder(true)}
+                    >
+                      🔍 Find My Seat
+                    </button>
+                  </div>
                 </div>
 
             <SeatMap
@@ -222,8 +236,17 @@ function App() {
             {selectedSeat && (
               <BookingForm
                 seat={selectedSeat}
+                seats={seats}
                 onSubmit={handleBooking}
                 onCancel={handleCancelSelection}
+              />
+            )}
+
+            {showSeatFinder && (
+              <SeatFinder
+                seats={seats}
+                onClose={() => setShowSeatFinder(false)}
+                onSeatSelect={handleSeatClick}
               />
             )}
           </>

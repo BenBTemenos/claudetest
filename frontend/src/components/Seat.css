@@ -15,14 +15,18 @@
 
 .seat-number {
   font-weight: bold;
-  font-size: 1.1rem;
-  color: #333;
+  font-size: 1rem;
+  color: #000;
 }
 
 .seat-price {
-  font-size: 0.7rem;
-  color: #555;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #000;
   margin-top: 2px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1px 4px;
+  border-radius: 3px;
 }
 
 /* Part 3 - Top regular rows (green to red) */
@@ -74,9 +78,13 @@
   opacity: 0.6;
 }
 
-.seat.booked .seat-number,
-.seat.booked .seat-price {
+.seat.booked .seat-number {
   color: #555;
+}
+
+.seat.booked .seat-price {
+  color: #000;
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .seat.booked:hover {
