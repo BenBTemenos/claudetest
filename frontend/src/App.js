@@ -180,38 +180,22 @@ function App() {
               <h3>Pricing Legend:</h3>
               <div className="legend-items">
                 <div className="legend-item">
-                  <span className="legend-box" style={{backgroundColor: '#1976d2'}}></span>
-                  <span>$600/year</span>
+                  <span className="legend-box" style={{backgroundColor: '#9333ea'}}></span>
+                  <span>VIP (F1-F40, B1-B40)</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-box" style={{backgroundColor: '#4caf50'}}></span>
-                  <span>$500/year</span>
+                  <span className="legend-box" style={{backgroundColor: '#3b82f6'}}></span>
+                  <span>Premium (F41-F80, B41-B80)</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-box" style={{backgroundColor: '#ffeb3b'}}></span>
-                  <span>$300/year</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box" style={{backgroundColor: '#ff9800'}}></span>
-                  <span>$200/year</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box" style={{backgroundColor: '#f44336'}}></span>
-                  <span>$150/year</span>
+                  <span className="legend-box" style={{backgroundColor: '#10b981'}}></span>
+                  <span>Regular (F61-F100, B61-B100)</span>
                 </div>
               </div>
               <div className="legend-items">
                 <div className="legend-item">
-                  <span className="legend-box available"></span>
-                  <span>Available</span>
-                </div>
-                <div className="legend-item">
                   <span className="legend-box booked"></span>
                   <span>Booked</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-box selected"></span>
-                  <span>Selected</span>
                 </div>
               </div>
             </div>

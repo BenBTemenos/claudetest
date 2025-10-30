@@ -29,6 +29,33 @@
   border-radius: 3px;
 }
 
+/* VIP Seats (F1-F40, B1-B40) - Purple color overrides layer colors */
+.seat.vip-seat.available {
+  background-color: #9333ea !important; /* Purple for VIP */
+}
+
+.seat.vip-seat.available:hover {
+  background-color: #7c3aed !important;
+}
+
+/* Premium Seats (F41-F80, B41-B80) - Blue color overrides layer colors */
+.seat.premium-seat.available {
+  background-color: #3b82f6 !important; /* Blue for Premium */
+}
+
+.seat.premium-seat.available:hover {
+  background-color: #2563eb !important;
+}
+
+/* Regular Seats (F61-F100, B61-B100) - Green color overrides layer colors */
+.seat.regular-seat.available {
+  background-color: #10b981 !important; /* Green for Regular */
+}
+
+.seat.regular-seat.available:hover {
+  background-color: #059669 !important;
+}
+
 /* Part 3 - Top regular rows (green to red) */
 .seat.layer-1.available { background-color: #4caf50; }
 .seat.layer-2.available { background-color: #8bc34a; }

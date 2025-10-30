@@ -7,6 +7,27 @@ function Seat({ seat, isSelected, onClick }) {
   const getClassNames = () => {
     let classes = ['seat', `layer-${seat.layer}`];
 
+    // Check if this is a VIP seat (F1-F40 or B1-B40)
+    const isVIPFront = seat.seat_type === 'regular_top' && seat.fNumber && seat.fNumber <= 40;
+    const isVIPBack = seat.seat_type === 'regular_bottom' && seat.bNumber && seat.bNumber <= 40;
+    if (isVIPFront || isVIPBack) {
+      classes.push('vip-seat');
+    }
+
+    // Check if this is a Premium seat (F41-F80 or B41-B80)
+    const isPremiumFront = seat.seat_type === 'regular_top' && seat.fNumber && seat.fNumber >= 41 && seat.fNumber <= 80;
+    const isPremiumBack = seat.seat_type === 'regular_bottom' && seat.bNumber && seat.bNumber >= 41 && seat.bNumber <= 80;
+    if (isPremiumFront || isPremiumBack) {
+      classes.push('premium-seat');
+    }
+
+    // Check if this is a Regular seat (F61-F100 or B61-B100)
+    const isRegularFront = seat.seat_type === 'regular_top' && seat.fNumber && seat.fNumber >= 61 && seat.fNumber <= 100;
+    const isRegularBack = seat.seat_type === 'regular_bottom' && seat.bNumber && seat.bNumber >= 61 && seat.bNumber <= 100;
+    if (isRegularFront || isRegularBack) {
+      classes.push('regular-seat');
+    }
+
     if (!isAvailable) {
       classes.push('booked');
     } else if (isSelected) {

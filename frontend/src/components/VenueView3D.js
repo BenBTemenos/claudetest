@@ -28,7 +28,7 @@ function Seat3D({ position, seatData, onClick, onHover }) {
   // Determine seat color based on availability
   const getSeatColor = () => {
     if (hovered) return '#ffff00'; // Yellow on hover
-    if (!seatData.is_available || seatData.is_booked) return '#ff0000'; // Red if booked
+    if (!seatData.is_available || seatData.is_booked) return '#9e9e9e'; // Gray if booked
 
     // Color by price
     if (seatData.price >= 500) return '#9333ea'; // Purple for expensive
@@ -325,19 +325,19 @@ export default function VenueView3D({ seats, onSeatSelect }) {
       }}>
         <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>3D Venue View</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-          <div style={{ width: '16px', height: '16px', background: '#10b981', borderRadius: '2px' }}></div>
-          <span>Regular Seats</span>
+          <div style={{ width: '16px', height: '16px', background: '#9333ea', borderRadius: '2px' }}></div>
+          <span>VIP Seats</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
           <div style={{ width: '16px', height: '16px', background: '#3b82f6', borderRadius: '2px' }}></div>
           <span>Premium Seats</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-          <div style={{ width: '16px', height: '16px', background: '#9333ea', borderRadius: '2px' }}></div>
-          <span>VIP Seats</span>
+          <div style={{ width: '16px', height: '16px', background: '#10b981', borderRadius: '2px' }}></div>
+          <span>Regular Seats</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ width: '16px', height: '16px', background: '#ff0000', borderRadius: '2px' }}></div>
+          <div style={{ width: '16px', height: '16px', background: '#9e9e9e', borderRadius: '2px' }}></div>
           <span>Booked</span>
         </div>
         <div style={{ marginTop: '10px', fontSize: '12px', opacity: 0.7 }}>
