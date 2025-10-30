@@ -4,6 +4,7 @@ import SeatMap from './components/SeatMap';
 import BookingForm from './components/BookingForm';
 import MultiAgentSystem from './components/MultiAgentSystem';
 import SeatFinder from './components/SeatFinder';
+import VenueView3D from './components/VenueView3D';
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
@@ -18,6 +19,7 @@ function App() {
   const [emailStatus, setEmailStatus] = useState(null);
   const [bookings, setBookings] = useState([]);
   const [showSeatFinder, setShowSeatFinder] = useState(false);
+  const [viewMode, setViewMode] = useState('2d'); // '2d' or '3d'
 
   useEffect(() => {
     fetchSeats();
@@ -225,13 +227,39 @@ function App() {
                       🔍 Find My Seat
                     </button>
                   </div>
+
+                  {/* View Mode Toggle */}
+                  <div className="view-mode-section">
+                    <h3>View Mode:</h3>
+                    <div className="view-toggle-buttons">
+                      <button
+                        className={`view-toggle-btn ${viewMode === '2d' ? 'active' : ''}`}
+                        onClick={() => setViewMode('2d')}
+                      >
+                        📊 2D Map
+                      </button>
+                      <button
+                        className={`view-toggle-btn ${viewMode === '3d' ? 'active' : ''}`}
+                        onClick={() => setViewMode('3d')}
+                      >
+                        🎮 3D View
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
-            <SeatMap
-              seats={seats}
-              selectedSeat={selectedSeat}
-              onSeatClick={handleSeatClick}
-            />
+            {viewMode === '2d' ? (
+              <SeatMap
+                seats={seats}
+                selectedSeat={selectedSeat}
+                onSeatClick={handleSeatClick}
+              />
+            ) : (
+              <VenueView3D
+                seats={seats}
+                onSeatSelect={handleSeatClick}
+              />
+            )}
 
             {selectedSeat && (
               <BookingForm

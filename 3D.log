@@ -1,0 +1,100 @@
+
+================================================================================
+Timestamp: 2025-10-30T09:10:22.463Z
+Error Type: 3D View Init
+Message: User opened 3D view
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Stack Trace:
+N/A
+================================================================================
+
+================================================================================
+Timestamp: 2025-10-30T09:10:22.462Z
+Error Type: 3D View Init
+Message: User opened 3D view
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Stack Trace:
+N/A
+================================================================================
+
+================================================================================
+Timestamp: 2025-10-30T09:10:22.562Z
+Error Type: React Error Boundary
+Message: Cannot read properties of undefined (reading 'includes')
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Stack Trace:
+TypeError: Cannot read properties of undefined (reading 'includes')
+    at getSeat3DPosition (http://localhost:3000/static/js/bundle.js:116151:22)
+    at http://localhost:3000/static/js/bundle.js:116221:17
+    at Array.map (<anonymous>)
+    at VenueScene (http://localhost:3000/static/js/bundle.js:116220:21)
+    at react-stack-bottom-frame (http://localhost:3000/static/js/bundle.js:36273:18)
+    at renderWithHooks (http://localhost:3000/static/js/bundle.js:31191:20)
+    at updateFunctionComponent (http://localhost:3000/static/js/bundle.js:32401:17)
+    at beginWork (http://localhost:3000/static/js/bundle.js:32981:16)
+    at runWithFiberInDEV (http://localhost:3000/static/js/bundle.js:29373:14)
+    at performUnitOfWork (http://localhost:3000/static/js/bundle.js:35216:83)
+================================================================================
+
+================================================================================
+Timestamp: 2025-10-30T09:10:22.559Z
+Error Type: WebGL Context
+Message: WebGL context created successfully
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Stack Trace:
+N/A
+================================================================================
+
+================================================================================
+Timestamp: 2025-10-30T09:11:33.585Z
+Error Type: 3D View Init
+Message: User opened 3D view
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Stack Trace:
+N/A
+================================================================================
+
+================================================================================
+Timestamp: 2025-10-30T09:11:33.586Z
+Error Type: 3D View Init
+Message: User opened 3D view
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Stack Trace:
+N/A
+================================================================================
+
+================================================================================
+Timestamp: 2025-10-30T09:11:33.682Z
+Error Type: WebGL Context
+Message: WebGL context created successfully
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Stack Trace:
+N/A
+================================================================================
+
+================================================================================
+Timestamp: 2025-10-30T09:12:42.583Z
+Error Type: 3D View Init
+Message: User opened 3D view
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Stack Trace:
+N/A
+================================================================================
+
+================================================================================
+Timestamp: 2025-10-30T09:12:42.584Z
+Error Type: 3D View Init
+Message: User opened 3D view
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Stack Trace:
+N/A
+================================================================================
+
+================================================================================
+Timestamp: 2025-10-30T09:12:42.845Z
+Error Type: WebGL Context
+Message: WebGL context created successfully
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Stack Trace:
+N/A
+================================================================================

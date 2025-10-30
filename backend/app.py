@@ -170,5 +170,33 @@ def cancel_booking(booking_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/log-3d-error', methods=['POST'])
+def log_3d_error():
+    """Log 3D view errors to file"""
+    try:
+        from datetime import datetime
+
+        data = request.json
+        log_entry = f"""
+{'='*80}
+Timestamp: {data.get('timestamp', datetime.now().isoformat())}
+Error Type: {data.get('type', 'Unknown')}
+Message: {data.get('message', 'No message')}
+User Agent: {data.get('userAgent', 'Unknown')}
+Stack Trace:
+{data.get('stack', 'No stack trace available')}
+{'='*80}
+"""
+
+        # Write to 3D.log file
+        log_file = os.path.join(os.path.dirname(__file__), '..', '3D.log')
+        with open(log_file, 'a') as f:
+            f.write(log_entry)
+
+        return jsonify({'success': True, 'message': 'Error logged successfully'}), 200
+    except Exception as e:
+        print(f"Failed to log 3D error: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
