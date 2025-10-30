@@ -5,6 +5,30 @@ import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
+// Famous person stories with image URLs (using placeholder images)
+const famousStories = [
+  { name: "Albert Einstein", story: "Einstein sat here during a physics conference in 1925. He spent the entire time doodling E=mc² variations on his napkin, including E=mc³ (which he crossed out immediately).", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head.jpg/220px-Albert_Einstein_Head.jpg" },
+  { name: "Marie Curie", story: "Marie Curie attended a chemistry symposium here in 1903. She allegedly made the seat glow slightly for weeks afterwards.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Marie_Curie_c._1920s.jpg/220px-Marie_Curie_c._1920s.jpg" },
+  { name: "Nikola Tesla", story: "Nikola Tesla occupied this seat in 1899. He claimed he could hear the electrical signals from the stage lighting system and spent the show humming along.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Tesla_circa_1890.jpeg/220px-Tesla_circa_1890.jpeg" },
+  { name: "Charlie Chaplin", story: "Chaplin sat here for a silent film premiere. Ironically, he talked through the entire movie, explaining his comedy theories to the annoyed patron next to him.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Chaplin_The_Kid_edit.jpg/220px-Chaplin_The_Kid_edit.jpg" },
+  { name: "Amelia Earhart", story: "Earhart watched a show here the night before her famous flight. She later joked that the uncomfortable seat prepared her for long flights.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Amelia_Earhart_standing_under_nose_of_her_Lockheed_Model_10-E_Electra.jpg/220px-Amelia_Earhart_standing_under_nose_of_her_Lockheed_Model_10-E_Electra.jpg" },
+  { name: "Mark Twain", story: "Mark Twain fell asleep in this seat during a particularly boring lecture in 1885. His snoring became louder than the speaker.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Mark_Twain_by_AF_Bradley.jpg/220px-Mark_Twain_by_AF_Bradley.jpg" },
+  { name: "Leonardo da Vinci", story: "Da Vinci (via time machine, allegedly) sat here and spent the show sketching flying machines inspired by the stage curtains.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Francesco_Melzi_-_Portrait_of_Leonardo.png/220px-Francesco_Melzi_-_Portrait_of_Leonardo.png" },
+  { name: "William Shakespeare", story: "Shakespeare sat here and found the play so boring he started writing Hamlet on his program. That's the real origin story (citation needed).", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shakespeare.jpg/220px-Shakespeare.jpg" },
+  { name: "Cleopatra", story: "Cleopatra (also via time machine) occupied this seat and demanded the theater install a throne instead. They politely declined.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Cleopatra_VII_tetradrachm_Syracuse_mint.jpg/220px-Cleopatra_VII_tetradrachm_Syracuse_mint.jpg" },
+  { name: "Wolfgang Mozart", story: "Mozart sat here at age 8 and composed a symphony in his head during intermission. He forgot it by the end of the show.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Wolfgang-amadeus-mozart_1.jpg/220px-Wolfgang-amadeus-mozart_1.jpg" },
+  { name: "Isaac Newton", story: "Newton sat here when an apple rolled down the aisle. He started calculating its trajectory and missed the entire performance.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Sir_Isaac_Newton_%281643-1727%29.jpg/220px-Sir_Isaac_Newton_%281643-1727%29.jpg" },
+  { name: "Harry Houdini", story: "Houdini sat here but kept escaping to the lobby. The ushers gave up trying to keep him in his seat.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Houdini_and_Jennie_the_Elephant_Performing.jpg/220px-Houdini_and_Jennie_the_Elephant_Performing.jpg" },
+  { name: "Joan of Arc", story: "Joan of Arc attended a medieval play here. She left a review saying 'Historically inaccurate armor. 2/10.'", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Joan_of_Arc_miniature_graded.jpg/220px-Joan_of_Arc_miniature_graded.jpg" },
+  { name: "Benjamin Franklin", story: "Franklin sat here during a thunderstorm. He kept suggesting they install lightning rods on the chandelier.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Benjamin_Franklin_by_Jean-Baptiste_Greuze.jpg/220px-Benjamin_Franklin_by_Jean-Baptiste_Greuze.jpg" },
+  { name: "Galileo Galilei", story: "Galileo watched from this seat with a telescope he smuggled in. He was asked to leave for blocking others' view.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg/220px-Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg" },
+  { name: "Wright Brothers", story: "The Wright Brothers sat here and argued about whether the stage should be redesigned with wings for better aerodynamics.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Wright_Brothers.jpg/220px-Wright_Brothers.jpg" },
+  { name: "Thomas Edison", story: "Edison sat here testing his new portable light bulb. It kept blinding the people in front of him.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Thomas_Edison2.jpg/220px-Thomas_Edison2.jpg" },
+  { name: "Ludwig van Beethoven", story: "Beethoven sat here and complained the orchestra was too quiet. They were playing at maximum volume.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/220px-Beethoven.jpg" },
+  { name: "Charles Darwin", story: "Darwin studied the evolution of seat comfort from this spot. His conclusion: 'This seat proves survival of the fittest posteriors.'", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Charles_Darwin_seated_crop.jpg/220px-Charles_Darwin_seated_crop.jpg" },
+  { name: "Socrates", story: "Socrates questioned the meaning of theater from this seat. The usher asked him to please just watch the show.", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Socrates_Louvre.jpg/220px-Socrates_Louvre.jpg" }
+];
+
 // Error logging utility
 const log3DError = async (errorType, errorMessage, errorStack) => {
   try {
@@ -24,6 +48,11 @@ const log3DError = async (errorType, errorMessage, errorStack) => {
 function Seat3D({ position, seatData, onClick, onHover }) {
   const meshRef = useRef();
   const [hovered, setHovered] = useState(false);
+  const [starHovered, setStarHovered] = useState(false);
+
+  // Determine if this seat is special (has a star)
+  const isSpecialSeat = seatData.id && (seatData.id % 13 === 0 || seatData.id % 17 === 0) && seatData.id <= 340;
+  const storyIndex = seatData.id ? seatData.id % famousStories.length : 0;
 
   // Determine seat color based on availability
   const getSeatColor = () => {
@@ -46,7 +75,7 @@ function Seat3D({ position, seatData, onClick, onHover }) {
   });
 
   return (
-    <group position={position}>
+    <group position={position} rotation={[0, Math.PI, 0]}>
       {/* Seat base */}
       <mesh
         ref={meshRef}
@@ -59,29 +88,96 @@ function Seat3D({ position, seatData, onClick, onHover }) {
           setHovered(false);
           onHover(null);
         }}
+        castShadow
+        receiveShadow
       >
         <boxGeometry args={[0.4, 0.4, 0.4]} />
-        <meshStandardMaterial color={getSeatColor()} />
+        <meshStandardMaterial color={getSeatColor()} metalness={0.2} roughness={0.5} />
       </mesh>
 
       {/* Seat back */}
-      <mesh position={[0, 0.3, -0.15]}>
+      <mesh position={[0, 0.3, -0.15]} castShadow receiveShadow>
         <boxGeometry args={[0.4, 0.3, 0.1]} />
-        <meshStandardMaterial color={getSeatColor()} />
+        <meshStandardMaterial color={getSeatColor()} metalness={0.2} roughness={0.5} />
       </mesh>
 
+      {/* Star indicator for special seats */}
+      {isSpecialSeat && (
+        <Html distanceFactor={10} position={[0.3, 0.5, 0]}>
+          <div
+            onMouseEnter={() => setStarHovered(true)}
+            onMouseLeave={() => setStarHovered(false)}
+            style={{
+              fontSize: '20px',
+              cursor: 'pointer',
+              animation: 'twinkle 2s ease-in-out infinite',
+              textShadow: '0 0 5px yellow',
+              pointerEvents: 'auto'
+            }}
+          >
+            ⭐
+          </div>
+        </Html>
+      )}
+
+      {/* Story tooltip on star hover */}
+      {isSpecialSeat && starHovered && (
+        <Html distanceFactor={5} position={[0, 1, 0]}>
+          <div
+            style={{
+              background: 'rgba(255, 255, 255, 0.98)',
+              color: '#333',
+              padding: '20px 25px',
+              borderRadius: '12px',
+              fontSize: '14px',
+              maxWidth: '400px',
+              width: '400px',
+              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+              pointerEvents: 'none',
+              border: '2px solid #667eea',
+              lineHeight: '1.6'
+            }}
+          >
+            <div style={{
+              fontSize: '18px',
+              fontWeight: 'bold',
+              marginBottom: '10px',
+              color: '#667eea',
+              textAlign: 'center'
+            }}>
+              🌟 {famousStories[storyIndex].name}
+            </div>
+            <div style={{ fontSize: '13px', color: '#555' }}>
+              {famousStories[storyIndex].story}
+            </div>
+            <div style={{
+              fontSize: '12px',
+              color: '#888',
+              marginTop: '12px',
+              paddingTop: '10px',
+              borderTop: '1px solid #ddd',
+              textAlign: 'center',
+              fontWeight: 'bold'
+            }}>
+              Seat #{seatData.id}
+            </div>
+          </div>
+        </Html>
+      )}
+
       {/* Hover tooltip */}
-      {hovered && (
+      {hovered && !starHovered && (
         <Html distanceFactor={10}>
           <div style={{
-            background: 'rgba(0, 0, 0, 0.8)',
+            background: 'rgba(0, 0, 0, 0.85)',
             color: 'white',
-            padding: '8px 12px',
-            borderRadius: '4px',
+            padding: '10px 14px',
+            borderRadius: '6px',
             fontSize: '12px',
             whiteSpace: 'nowrap',
             pointerEvents: 'none',
-            transform: 'translate(-50%, -120%)'
+            transform: 'translate(-50%, -120%)',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.3)'
           }}>
             <div><strong>Seat #{seatData.id}</strong></div>
             <div>Layer {seatData.layer} {seatData.side && `- ${seatData.side}`}</div>
@@ -89,9 +185,25 @@ function Seat3D({ position, seatData, onClick, onHover }) {
             <div style={{ color: seatData.is_available ? '#51cf66' : '#ff6b6b' }}>
               {seatData.is_available ? 'Available' : 'Booked'}
             </div>
+            {seatData.is_available && (() => {
+              let acInfo;
+              if (seatData.seat_type === 'perpendicular_front') {
+                acInfo = { icon: '❄️❄️❄️', desc: 'Max AC' };
+              } else if (seatData.seat_type === 'regular_top' || seatData.seat_type === 'regular_bottom') {
+                if (seatData.position >= 5 && seatData.position <= 15) {
+                  acInfo = { icon: '❄️❄️', desc: 'Good AC' };
+                } else {
+                  acInfo = { icon: '❄️', desc: 'Moderate AC' };
+                }
+              } else {
+                acInfo = { icon: '❄️', desc: 'Standard AC' };
+              }
+              return <div style={{ marginTop: '4px', color: '#88ccff' }}>{acInfo.icon} {acInfo.desc}</div>;
+            })()}
           </div>
         </Html>
       )}
+
     </group>
   );
 }
@@ -100,27 +212,77 @@ function Seat3D({ position, seatData, onClick, onHover }) {
 function Stage() {
   return (
     <group position={[0, 0, -15]}>
-      {/* Stage platform */}
-      <mesh position={[0, -0.5, 0]}>
+      {/* Stage platform - Modern dark wood */}
+      <mesh position={[0, -0.5, 0]} castShadow receiveShadow>
         <boxGeometry args={[20, 1, 6]} />
-        <meshStandardMaterial color="#1a1a1a" />
+        <meshStandardMaterial color="#374151" metalness={0.2} roughness={0.6} />
       </mesh>
 
-      {/* Stage backdrop */}
-      <mesh position={[0, 2, -2.5]}>
+      {/* Stage backdrop - Modern gradient */}
+      <mesh position={[0, 2, -2.5]} castShadow receiveShadow>
         <boxGeometry args={[20, 5, 0.5]} />
-        <meshStandardMaterial color="#2d2d2d" />
+        <meshStandardMaterial color="#1f2937" metalness={0.3} roughness={0.7} />
       </mesh>
 
       {/* Stage text */}
       <Text
         position={[0, 2, -2]}
         fontSize={1.5}
-        color="white"
+        color="#f3f4f6"
         anchorX="center"
         anchorY="middle"
       >
         STAGE
+      </Text>
+
+      {/* NVIDIA Advertisement - Left side */}
+      <mesh position={[-7, 2, -2.3]} castShadow receiveShadow>
+        <boxGeometry args={[3, 2, 0.1]} />
+        <meshStandardMaterial color="#76b900" metalness={0.1} roughness={0.3} />
+      </mesh>
+      <Text
+        position={[-7, 2.3, -2.2]}
+        fontSize={0.6}
+        color="#000000"
+        anchorX="center"
+        anchorY="middle"
+        fontWeight="bold"
+      >
+        NVIDIA
+      </Text>
+      <Text
+        position={[-7, 1.7, -2.2]}
+        fontSize={0.3}
+        color="#000000"
+        anchorX="center"
+        anchorY="middle"
+      >
+        Powering AI
+      </Text>
+
+      {/* AWS Advertisement - Right side */}
+      <mesh position={[7, 2, -2.3]} castShadow receiveShadow>
+        <boxGeometry args={[3, 2, 0.1]} />
+        <meshStandardMaterial color="#ff9900" metalness={0.1} roughness={0.3} />
+      </mesh>
+      <Text
+        position={[7, 2.3, -2.2]}
+        fontSize={0.6}
+        color="#232f3e"
+        anchorX="center"
+        anchorY="middle"
+        fontWeight="bold"
+      >
+        AWS
+      </Text>
+      <Text
+        position={[7, 1.7, -2.2]}
+        fontSize={0.3}
+        color="#232f3e"
+        anchorX="center"
+        anchorY="middle"
+      >
+        Cloud Solutions
       </Text>
     </group>
   );
@@ -156,18 +318,21 @@ function VenueScene({ seats, onSeatClick }) {
 
   return (
     <>
-      {/* Lighting */}
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 5]} intensity={1} />
-      <pointLight position={[0, 5, 0]} intensity={0.5} />
+      {/* Lighting - Modern and bright */}
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[10, 10, 5]} intensity={1.5} castShadow />
+      <directionalLight position={[-10, 8, -5]} intensity={0.8} />
+      <pointLight position={[0, 10, 0]} intensity={1.2} />
+      <pointLight position={[10, 5, 10]} intensity={0.6} color="#ffffff" />
+      <pointLight position={[-10, 5, 10]} intensity={0.6} color="#ffffff" />
 
       {/* Stage */}
       <Stage />
 
-      {/* Floor */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
+      {/* Floor - Modern light gray */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
         <planeGeometry args={[50, 40]} />
-        <meshStandardMaterial color="#1a1a2e" />
+        <meshStandardMaterial color="#e5e7eb" metalness={0.1} roughness={0.8} />
       </mesh>
 
       {/* Seats */}
@@ -297,10 +462,19 @@ export default function VenueView3D({ seats, onSeatSelect }) {
 
   return (
     <ErrorBoundary>
-      <div style={{ width: '100%', height: '600px', background: '#0f172a', borderRadius: '8px' }}>
+      <div style={{
+        width: '100%',
+        height: '600px',
+        backgroundImage: 'url(/Geneva.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        borderRadius: '8px',
+        position: 'relative'
+      }}>
         <Canvas
           camera={{ position: [0, 15, 20], fov: 60 }}
           style={{ width: '100%', height: '100%' }}
+          shadows
           onCreated={({ gl }) => {
             // Log WebGL context creation
             log3DError('WebGL Context', 'WebGL context created successfully', 'N/A');

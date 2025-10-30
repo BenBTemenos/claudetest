@@ -170,6 +170,22 @@ function BookingForm({ seat, seats, onSubmit, onCancel }) {
     );
   };
 
+  // Get AC info for the selected seat
+  const getAirConditioningInfo = () => {
+    if (seat.seat_type === 'perpendicular_front') {
+      return { proximity: 'Excellent', icon: '❄️❄️❄️', description: 'Right under AC - Maximum cooling' };
+    }
+    if (seat.seat_type === 'regular_top' || seat.seat_type === 'regular_bottom') {
+      if (seat.position >= 5 && seat.position <= 15) {
+        return { proximity: 'Good', icon: '❄️❄️', description: 'Close to AC - Good cooling' };
+      }
+      return { proximity: 'Moderate', icon: '❄️', description: 'Away from AC - Moderate cooling' };
+    }
+    return { proximity: 'Moderate', icon: '❄️', description: 'Standard cooling' };
+  };
+
+  const acInfo = getAirConditioningInfo();
+
   return (
     <div className="booking-form-overlay">
       <div className="booking-form-container">
@@ -188,6 +204,9 @@ function BookingForm({ seat, seats, onSubmit, onCancel }) {
           <p><strong>Side:</strong> {seat.side}</p>
           <p><strong>Position:</strong> {seat.position}</p>
           <p className="price"><strong>Annual Price:</strong> ${seat.price}</p>
+          <p className="ac-info" style={{ color: acInfo.proximity === 'Excellent' ? '#0066cc' : acInfo.proximity === 'Good' ? '#00aa00' : '#666' }}>
+            <strong>{acInfo.icon} Air Conditioning:</strong> {acInfo.description}
+          </p>
         </div>
 
         <form onSubmit={handleSubmit}>

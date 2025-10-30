@@ -210,11 +210,9 @@ function App() {
                     >
                       🔍 Find My Seat
                     </button>
-                  </div>
 
-                  {/* View Mode Toggle */}
-                  <div className="view-mode-section">
-                    <h3>View Mode:</h3>
+                    {/* View Mode Toggle inside Help Me Find */}
+                    <h3 style={{ marginTop: '20px' }}>View Mode:</h3>
                     <div className="view-toggle-buttons">
                       <button
                         className={`view-toggle-btn ${viewMode === '2d' ? 'active' : ''}`}
