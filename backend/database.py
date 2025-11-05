@@ -124,6 +124,7 @@ class Database:
 
         cursor.execute('''
             SELECT s.id, s.layer, s.side, s.position, s.price, s.is_available, s.seat_type,
+                   s.has_ac, s.view_quality, s.famous_occupant, s.pros, s.cons,
                    b.user_name, b.user_email
             FROM seats s
             LEFT JOIN bookings b ON s.id = b.seat_id AND s.is_available = 0
@@ -141,6 +142,7 @@ class Database:
 
         cursor.execute('''
             SELECT s.id, s.layer, s.side, s.position, s.price, s.is_available, s.seat_type,
+                   s.has_ac, s.view_quality, s.famous_occupant, s.pros, s.cons,
                    b.user_name, b.user_email
             FROM seats s
             LEFT JOIN bookings b ON s.id = b.seat_id AND s.is_available = 0

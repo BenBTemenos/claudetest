@@ -2,7 +2,7 @@ import React from 'react';
 import './SeatMap.css';
 import Seat from './Seat';
 
-function SeatMap({ seats, selectedSeat, onSeatClick }) {
+function SeatMap({ seats, selectedSeat, recommendedSeats = [], onSeatClick }) {
   // Separate seat types: Part 3 (top regular), Part 1 (perpendicular), Part 2 (bottom regular)
   const regularTopSeats = seats.filter(s => s.seat_type === 'regular_top');
   const perpendicularFrontSeats = seats.filter(s => s.seat_type === 'perpendicular_front');
@@ -81,6 +81,7 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
                     key={seat.id}
                     seat={{...seat, fNumber: seatsWithFNumbers[seat.id]}}
                     isSelected={selectedSeat?.id === seat.id}
+                    isRecommended={recommendedSeats.includes(seat.id)}
                     onClick={() => onSeatClick(seat)}
                   />
                 ))}
@@ -98,6 +99,7 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
                     key={seat.id}
                     seat={{...seat, fNumber: seatsWithFNumbers[seat.id]}}
                     isSelected={selectedSeat?.id === seat.id}
+                    isRecommended={recommendedSeats.includes(seat.id)}
                     onClick={() => onSeatClick(seat)}
                   />
                 ))}
@@ -123,6 +125,7 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
                   key={seat.id}
                   seat={{...seat, mNumber: mCounter + seatIndex}}
                   isSelected={selectedSeat?.id === seat.id}
+                  isRecommended={recommendedSeats.includes(seat.id)}
                   onClick={() => onSeatClick(seat)}
                 />
               ))}
@@ -159,6 +162,7 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
                       key={seat.id}
                       seat={{...seat, bNumber: seatsWithBNumbers[seat.id]}}
                       isSelected={selectedSeat?.id === seat.id}
+                      isRecommended={recommendedSeats.includes(seat.id)}
                       onClick={() => onSeatClick(seat)}
                     />
                   ))}
@@ -176,6 +180,7 @@ function SeatMap({ seats, selectedSeat, onSeatClick }) {
                       key={seat.id}
                       seat={{...seat, bNumber: seatsWithBNumbers[seat.id]}}
                       isSelected={selectedSeat?.id === seat.id}
+                      isRecommended={recommendedSeats.includes(seat.id)}
                       onClick={() => onSeatClick(seat)}
                     />
                   ))}

@@ -201,6 +201,35 @@
   border-color: #2196f3;
 }
 
+/* Recommended seat - AI suggestions */
+.seat.recommended {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border: 3px solid #ff6b35;
+  animation: glow 2s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+  transform: scale(1.1);
+}
+
+.seat.recommended .seat-number,
+.seat.recommended .seat-price {
+  color: #333;
+  font-weight: bold;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 25px rgba(255, 107, 53, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 35px rgba(255, 107, 53, 0.6);
+  }
+}
+
+.seat.recommended:hover {
+  transform: scale(1.2);
+}
+
 /* Selected seat */
 .seat.selected {
   background-color: #2196f3;

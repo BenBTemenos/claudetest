@@ -5,6 +5,7 @@ import BookingForm from './components/BookingForm';
 import MultiAgentSystem from './components/MultiAgentSystem';
 import SeatFinder from './components/SeatFinder';
 import VenueView3D from './components/VenueView3D';
+import SeatAdvisorChat from './components/SeatAdvisorChat';
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
@@ -19,6 +20,8 @@ function App() {
   const [emailStatus, setEmailStatus] = useState(null);
   const [bookings, setBookings] = useState([]);
   const [showSeatFinder, setShowSeatFinder] = useState(false);
+  const [showSeatAdvisor, setShowSeatAdvisor] = useState(false);
+  const [recommendedSeats, setRecommendedSeats] = useState([]);
   const [viewMode, setViewMode] = useState('2d'); // '2d' or '3d'
 
   useEffect(() => {
@@ -197,6 +200,12 @@ function App() {
                   <span className="legend-box booked"></span>
                   <span>Booked</span>
                 </div>
+                {recommendedSeats.length > 0 && (
+                  <div className="legend-item">
+                    <span className="legend-box recommended"></span>
+                    <span>AI Recommended ⭐</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -209,6 +218,14 @@ function App() {
                       onClick={() => setShowSeatFinder(true)}
                     >
                       🔍 Find My Seat
+                    </button>
+
+                    <p style={{ marginTop: '12px' }}>Or get AI-powered recommendations:</p>
+                    <button
+                      className="find-seat-btn advisor-btn"
+                      onClick={() => setShowSeatAdvisor(true)}
+                    >
+                      🤖 AI Seat Advisor
                     </button>
 
                     {/* View Mode Toggle inside Help Me Find */}
@@ -230,36 +247,58 @@ function App() {
                   </div>
                 </div>
 
-            {viewMode === '2d' ? (
-              <SeatMap
-                seats={seats}
-                selectedSeat={selectedSeat}
-                onSeatClick={handleSeatClick}
-              />
-            ) : (
-              <VenueView3D
-                seats={seats}
-                onSeatSelect={handleSeatClick}
-              />
-            )}
+                {viewMode === '2d' ? (
+                  <SeatMap
+                    seats={seats}
+                    selectedSeat={selectedSeat}
+                    recommendedSeats={recommendedSeats}
+                    onSeatClick={handleSeatClick}
+                  />
+                ) : (
+                  <VenueView3D
+                    seats={seats}
+                    onSeatSelect={handleSeatClick}
+                  />
+                )}
 
-            {selectedSeat && (
-              <BookingForm
-                seat={selectedSeat}
-                seats={seats}
-                onSubmit={handleBooking}
-                onCancel={handleCancelSelection}
-              />
-            )}
+                {selectedSeat && (
+                  <BookingForm
+                    seat={selectedSeat}
+                    seats={seats}
+                    onSubmit={handleBooking}
+                    onCancel={handleCancelSelection}
+                  />
+                )}
 
-            {showSeatFinder && (
-              <SeatFinder
-                seats={seats}
-                onClose={() => setShowSeatFinder(false)}
-                onSeatSelect={handleSeatClick}
-              />
-            )}
-          </>
+                {showSeatFinder && (
+                  <SeatFinder
+                    seats={seats}
+                    onClose={() => setShowSeatFinder(false)}
+                    onSeatSelect={handleSeatClick}
+                  />
+                )}
+
+                {showSeatAdvisor && (
+                  <SeatAdvisorChat
+                    onSeatRecommend={(seat, allRecommendations) => {
+                      // Store recommended seats for highlighting
+                      if (allRecommendations) {
+                        setRecommendedSeats(allRecommendations.map(r => r.seat.id));
+                      }
+                      handleSeatClick(seat);
+                    }}
+                    onClose={() => {
+                      setShowSeatAdvisor(false);
+                      // Clear recommendations after a delay
+                      setTimeout(() => setRecommendedSeats([]), 500);
+                    }}
+                    onRecommendationsReceived={(recommendations) => {
+                      // Highlight recommended seats on the map
+                      setRecommendedSeats(recommendations.map(r => r.seat.id));
+                    }}
+                  />
+                )}
+              </>
             )}
           </>
         )}

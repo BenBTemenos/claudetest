@@ -103,7 +103,7 @@ function Seat3D({ position, seatData, onClick, onHover }) {
 
       {/* Star indicator for special seats */}
       {isSpecialSeat && (
-        <Html distanceFactor={10} position={[0.3, 0.5, 0]}>
+        <Html distanceFactor={10} position={[0.3, 0.5, 0]} zIndexRange={[0, 0]}>
           <div
             onMouseEnter={() => setStarHovered(true)}
             onMouseLeave={() => setStarHovered(false)}
@@ -112,7 +112,8 @@ function Seat3D({ position, seatData, onClick, onHover }) {
               cursor: 'pointer',
               animation: 'twinkle 2s ease-in-out infinite',
               textShadow: '0 0 5px yellow',
-              pointerEvents: 'auto'
+              pointerEvents: 'auto',
+              zIndex: 1
             }}
           >
             ⭐
@@ -167,7 +168,7 @@ function Seat3D({ position, seatData, onClick, onHover }) {
 
       {/* Hover tooltip */}
       {hovered && !starHovered && (
-        <Html distanceFactor={10}>
+        <Html distanceFactor={10} zIndexRange={[100, 100]}>
           <div style={{
             background: 'rgba(0, 0, 0, 0.85)',
             color: 'white',
@@ -177,7 +178,8 @@ function Seat3D({ position, seatData, onClick, onHover }) {
             whiteSpace: 'nowrap',
             pointerEvents: 'none',
             transform: 'translate(-50%, -120%)',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.3)'
+            boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+            zIndex: 100
           }}>
             <div><strong>Seat #{seatData.id}</strong></div>
             <div>Layer {seatData.layer} {seatData.side && `- ${seatData.side}`}</div>
@@ -288,8 +290,39 @@ function Stage() {
   );
 }
 
+// Red Arrow Indicator Component
+function RedArrow({ position }) {
+  const arrowRef = useRef();
+
+  useFrame((state) => {
+    if (arrowRef.current) {
+      // Animate arrow bouncing up and down - arrow tip touches seat at lowest point
+      arrowRef.current.position.y = position[1] + 0.5 + Math.sin(state.clock.elapsedTime * 2) * 0.3;
+    }
+  });
+
+  return (
+    <group ref={arrowRef} position={position}>
+      {/* Arrow shaft */}
+      <mesh position={[0, 2, 0]} rotation={[Math.PI, 0, 0]}>
+        <cylinderGeometry args={[0.1, 0.1, 2, 16]} />
+        <meshStandardMaterial color="#ff0000" emissive="#ff0000" emissiveIntensity={0.5} />
+      </mesh>
+
+      {/* Arrow head (cone) pointing down */}
+      <mesh position={[0, 0.7, 0]} rotation={[Math.PI, 0, 0]}>
+        <coneGeometry args={[0.3, 0.6, 16]} />
+        <meshStandardMaterial color="#ff0000" emissive="#ff0000" emissiveIntensity={0.5} />
+      </mesh>
+
+      {/* Glow effect around arrow tip */}
+      <pointLight position={[0, 0.5, 0]} intensity={2} color="#ff0000" distance={5} />
+    </group>
+  );
+}
+
 // Main 3D Venue Component
-function VenueScene({ seats, onSeatClick }) {
+function VenueScene({ seats, onSeatClick, highlightedSeatId }) {
   // Convert seat layout to 3D positions based on layer, side, and position
   const getSeat3DPosition = (seat) => {
     let x = 0;
@@ -345,6 +378,15 @@ function VenueScene({ seats, onSeatClick }) {
           onHover={() => {}}
         />
       ))}
+
+      {/* Red Arrow pointing to highlighted seat */}
+      {highlightedSeatId && (() => {
+        const highlightedSeat = seats.find(s => s.id === highlightedSeatId);
+        if (highlightedSeat) {
+          return <RedArrow position={getSeat3DPosition(highlightedSeat)} />;
+        }
+        return null;
+      })()}
 
       {/* Camera Controls */}
       <OrbitControls
@@ -414,7 +456,7 @@ class ErrorBoundary extends React.Component {
 }
 
 // Main Component Export
-export default function VenueView3D({ seats, onSeatSelect }) {
+export default function VenueView3D({ seats, onSeatSelect, highlightedSeatId }) {
   const [renderError, setRenderError] = React.useState(null);
 
   const handleSeatClick = (seat) => {
@@ -483,7 +525,7 @@ export default function VenueView3D({ seats, onSeatSelect }) {
             log3DError('Canvas Error', error.message, error.stack);
           }}
         >
-          <VenueScene seats={seats} onSeatClick={handleSeatClick} />
+          <VenueScene seats={seats} onSeatClick={handleSeatClick} highlightedSeatId={highlightedSeatId} />
         </Canvas>
 
       {/* Legend */}

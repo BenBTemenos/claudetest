@@ -262,6 +262,20 @@
 .legend-box.available { background-color: #4caf50; }
 .legend-box.booked { background-color: #9e9e9e; }
 .legend-box.selected { background-color: #2196f3; }
+.legend-box.recommended {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border: 2px solid #ff6b35;
+  animation: legendGlow 2s ease-in-out infinite;
+}
+
+@keyframes legendGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
+  }
+}
 
 .help-find-section {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -304,6 +318,18 @@
   background: rgba(255, 255, 255, 0.9);
   transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.find-seat-btn.advisor-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: 2px solid #667eea;
+  margin-top: 8px;
+}
+
+.find-seat-btn.advisor-btn:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+  transform: translateY(-3px) scale(1.02);
 }
 
 /* Admin View Styles */

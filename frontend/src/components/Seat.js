@@ -25,7 +25,7 @@ const famousStories = [
   { name: "Socrates", story: "Socrates questioned the meaning of theater from this seat. The usher asked him to please just watch the show." }
 ];
 
-function Seat({ seat, isSelected, onClick }) {
+function Seat({ seat, isSelected, isRecommended = false, onClick }) {
   const isAvailable = seat.is_available === 1;
   const [showStory, setShowStory] = useState(false);
 
@@ -61,6 +61,8 @@ function Seat({ seat, isSelected, onClick }) {
       classes.push('booked');
     } else if (isSelected) {
       classes.push('selected');
+    } else if (isRecommended) {
+      classes.push('recommended');
     } else {
       classes.push('available');
     }

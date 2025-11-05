@@ -19,6 +19,8 @@ venv/
 
 # Environment
 .env
+APIKEY.env
+**/APIKEY.env
 
 # IDE
 .vscode/
@@ -27,3 +29,4 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+*.log
